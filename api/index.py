@@ -473,23 +473,19 @@ def search():
 def health_check():
     return jsonify({"status": "ok"})
 
-# Vercel serverless function入口点
-def handler(event, context):
-    return app(event, context)
+# Vercel需要的API路由
+@app.route('/api/search', methods=['GET'])
+def api_search():
+    """API端点，与主搜索端点功能相同"""
+    return search()
 
-# 为Vercel添加index路由
-@app.route('/')
-def index():
-    return jsonify({
-        "status": "ok",
-        "message": "字幕搜索API服务正常运行",
-        "endpoints": {
-            "/search": "搜索API，参数：query, min_ratio, min_similarity, max_results, rag",
-            "/health": "健康检查"
-        }
-    })
+@app.route('/api/health', methods=['GET'])
+def api_health():
+    """API健康检查端点"""
+    return health_check()
 
-application = app  # 兼容WSGI服务器
+# 应用程序实例，Vercel会自动使用这个
+application = app
 
 if __name__ == '__main__':
     # 本地运行
