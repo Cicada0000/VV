@@ -3,12 +3,9 @@ jieba==0.42.1
 python-telegram-bot==20.7
 httpx==0.25.2
 requests
-logging
-requests
-subprocess
-time
 flask
 flask_cors
 langchain
 langchain_core
+langchain-openai
 duckduckgo_search
